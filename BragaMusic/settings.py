@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 import json
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,7 +12,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 #DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = ['*']  # Apenas para testes
+
+if os.environ.get('RENDER'):
+    ALLOWED_HOSTS = ['*']  # Ou seus hosts específicos
+else:
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']  # Hosts para desenvolvimento local
 
 MERCADO_PAGO_PUBLIC_KEY = "APP_USR-aaa24b62-41e7-443a-82ff-f737cab8f01d"
 MERCADO_PAGO_ACCESS_TOKEN = "APP_USR-5090906557242439-031118-de20df38d823da6bbefda51c345df995-2319930959"
@@ -59,23 +64,15 @@ WSGI_APPLICATION = 'BragaMusic.wsgi.app'
 #WSGI_APPLICATION = 'BragaMusic.wsgi.application'
 
 
+
+
+
+
 PROD = os.environ.get('PROD')
 
-if PROD == '1':
-    # Configurações para produção
-    DATABASE_OPTIONS_RAW = os.environ.get('DATABASE_OPTIONS')
-    DATABASE_OPTIONS = json.loads(DATABASE_OPTIONS_RAW) if DATABASE_OPTIONS_RAW else {"sslmode": "require"}
-
+if os.environ.get('RENDER'):  # Verifica se está no ambiente Render
     DATABASES = {
-        'default': {
-            'ENGINE': os.environ.get('DATABASE_ENGINE'),
-            'NAME': os.environ.get('DATABASE_NAME'),
-            'USER': os.environ.get('DATABASE_USER'),
-            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-            'HOST': os.environ.get('DATABASE_HOST'),
-            'PORT': os.environ.get('DATABASE_PORT'),
-            'OPTIONS': DATABASE_OPTIONS,
-        }
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
     }
 else:
     # Configurações para desenvolvimento local
@@ -84,8 +81,8 @@ else:
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
-        
     }
+
 
 
 
@@ -119,8 +116,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build')
 
 
 LOGGING = {
