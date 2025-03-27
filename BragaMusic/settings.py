@@ -5,8 +5,8 @@ import json
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
-#SECRET_KEY = os.environ.get('SECRET_KEY')
+#SECRET_KEY = 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = True
 #DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
@@ -55,8 +55,8 @@ TEMPLATES = [
     },
 ]
 
-#WSGI_APPLICATION = 'BragaMusic.wsgi.app'
-WSGI_APPLICATION = 'BragaMusic.wsgi.application'
+WSGI_APPLICATION = 'BragaMusic.wsgi.app'
+#WSGI_APPLICATION = 'BragaMusic.wsgi.application'
 
 
 PROD = os.environ.get('PROD')
