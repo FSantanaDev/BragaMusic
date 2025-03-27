@@ -3,7 +3,7 @@ services:
     name: seu-nome-do-app
     runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn BragaMusic.wsgi:application  # Indentação correta
+    startCommand: gunicorn BragaMusic.wsgi:application --config gunicorn.conf.py
     envVars:
       - key: SECRET_KEY
         generateValue: true
