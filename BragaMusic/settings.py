@@ -71,7 +71,7 @@ if PROD == '1':
             'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
             'HOST': os.environ.get('DATABASE_HOST'),
             'PORT': os.environ.get('DATABASE_PORT'),
-            'OPTIONS': json.loads(os.environ.get('DATABASE_OPTIONS')),
+            'OPTIONS': json.loads(os.environ.get('DATABASE_OPTIONS')) if os.environ.get('DATABASE_OPTIONS') else {"sslmode": "require"},
         }
     }
 else:
@@ -82,6 +82,10 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+
+
+
+
 
 
 AUTH_USER_MODEL = "instrumento.Cliente"
