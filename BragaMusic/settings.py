@@ -84,10 +84,6 @@ else:
     }
 
 
-
-
-
-
 AUTH_USER_MODEL = "instrumento.Cliente"
 
 AUTH_PASSWORD_VALIDATORS = []
