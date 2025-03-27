@@ -63,6 +63,9 @@ PROD = os.environ.get('PROD')
 
 if PROD == '1':
     # Configurações para produção
+    DATABASE_OPTIONS_RAW = os.environ.get('DATABASE_OPTIONS')
+    DATABASE_OPTIONS = json.loads(DATABASE_OPTIONS_RAW) if DATABASE_OPTIONS_RAW else {"sslmode": "require"}
+
     DATABASES = {
         'default': {
             'ENGINE': os.environ.get('DATABASE_ENGINE'),
@@ -71,7 +74,7 @@ if PROD == '1':
             'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
             'HOST': os.environ.get('DATABASE_HOST'),
             'PORT': os.environ.get('DATABASE_PORT'),
-            'OPTIONS': json.loads(os.environ.get('DATABASE_OPTIONS')) if os.environ.get('DATABASE_OPTIONS') else {"sslmode": "require"},
+            'OPTIONS': DATABASE_OPTIONS,
         }
     }
 else:
@@ -82,7 +85,6 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-
 
 AUTH_USER_MODEL = "instrumento.Cliente"
 
@@ -123,4 +125,3 @@ LOGGING = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#teste
