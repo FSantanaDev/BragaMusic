@@ -3,7 +3,7 @@ services:
     name: seu-nome-do-app
     runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn BragaMusic.wsgi:application --config gunicorn.conf.py
+    startCommand: gunicorn BragaMusic.wsgi:application
     envVars:
       - key: SECRET_KEY
         generateValue: true
@@ -11,3 +11,5 @@ services:
         value: "postgresql://neondb_owner:npg_diYvCe3O0oBV@ep-wild-mud-a5rr9e9x-pooler.us-east-2.aws.neon.tech/bragamusic_db?sslmode=require"
       - key: DEBUG
         value: "False"  # ou "True" para depuração
+
+
