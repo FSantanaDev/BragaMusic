@@ -3,6 +3,7 @@ from . import views  # Supposing all views are in the same `views` module
 from django.conf.urls.static import static
 from django.conf import settings
 from .views import detalhe_instrumento,login_view,cadastrar_cliente, filtro_instrumentos,adicionar_ao_carrinho,remover_do_carrinho,carrinho,logout_view,homepage,finalizar_pedido,pagamento_retorno
+from instrumento.management_views import run_migrations
 
 urlpatterns = [
     path('', homepage, name='homepage'),  # The homepage to list instruments
@@ -26,6 +27,7 @@ urlpatterns = [
     path('pedidos/', views.lista_pedidos, name='lista_pedidos'),
     path('verificar_email/', views.verificar_email, name='verificar_email'),
     path('exibir_politica/', views.exibir_politica, name='exibir_politica'),
+    path('run-migrations/', run_migrations, name='run-migrations'),
     
 ]
 

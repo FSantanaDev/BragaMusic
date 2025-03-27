@@ -26,6 +26,7 @@ from django.conf import settings  # Importa as configurações do Django
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from datetime import datetime
+from instrumento.management_views import run_migrations
 
 def filtro_instrumentos(request):
     total_itens = calcular_total_itens_carrinho(request)
