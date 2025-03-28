@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-import json
+#import json
 import dj_database_url
 
 
@@ -8,8 +8,8 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
-#SECRET_KEY = os.environ.get('SECRET_KEY')
+#SECRET_KEY = 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = True
 #DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
@@ -69,27 +69,27 @@ WSGI_APPLICATION = 'BragaMusic.wsgi.app'
 
 
 
-PROD = os.environ.get('PROD')
-
-# Configurações para ambiente de produção (Render)
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-}
-
 # PROD = os.environ.get('PROD')
 
-# if os.environ.get('RENDER'):  # Verifica se está no ambiente Render
-#     DATABASES = {
-#         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-#     }
-# else:
-#     # Configurações para desenvolvimento local
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
-#     }
+# # Configurações para ambiente de produção (Render)
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+# }
+
+PROD = os.environ.get('PROD')
+
+if os.environ.get('RENDER'):  # Verifica se está no ambiente Render
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    }
+else:
+    # Configurações para desenvolvimento local
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 
