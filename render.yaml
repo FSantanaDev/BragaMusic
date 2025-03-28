@@ -6,7 +6,7 @@ services:
       pip install -r requirements.txt
       python manage.py makemigrations
       python manage.py migrate
-      python instrumento/management_users.py  # Executa o script para criar o superusuário
+      python manage.py create_superuser_command
     startCommand: gunicorn BragaMusic.wsgi:application
     envVars:
       - key: SECRET_KEY
