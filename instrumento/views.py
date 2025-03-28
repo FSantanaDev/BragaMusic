@@ -174,6 +174,24 @@ def cadastrar_cliente(request):
     return render(request, 'cadastro_cliente.html', {'form': form})
 
 
+def formatar_preco_real(preco):
+    """Formata um valor para a moeda real do Brasil."""
+    return "R$ {:,.2f}".format(preco).replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def homepage(request):
     #locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
     total_itens = calcular_total_itens_carrinho(request)
@@ -211,7 +229,7 @@ def homepage(request):
 
     # Formatação de preço
     for instrumento in instrumentos:
-        instrumento.preco_formatado = locale.currency(instrumento.preco, grouping=True)
+        instrumento.preco_formatado = formatar_preco_real(instrumento.preco)
 
     # Dados para filtros
     categorias = Categoria.objects.all()
@@ -251,6 +269,125 @@ def homepage(request):
     }
 
     return render(request, 'homepage.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def homepage(request):
+#     #locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+#     total_itens = calcular_total_itens_carrinho(request)
+#     instrumentos_lista = Instrumento.objects.prefetch_related('imagens').filter(ativo=True)
+
+#     # Filtros
+#     categoria_id = request.GET.get('categoria')
+#     marcas_ids = request.GET.getlist('marca')
+#     cores_selecionadas = request.GET.getlist('cor')
+#     preco_min = request.GET.get('preco_min')
+#     preco_max = request.GET.get('preco_max')
+
+#     # Aplicar filtros de forma conjunta
+#     if categoria_id:
+#         instrumentos_lista = instrumentos_lista.filter(categoria_id=categoria_id)
+
+#     if marcas_ids:
+#         instrumentos_lista = instrumentos_lista.filter(marca_id__in=marcas_ids)
+
+#     if cores_selecionadas:
+#         instrumentos_lista = instrumentos_lista.filter(cor__in=cores_selecionadas)
+
+#     if preco_min and preco_max:
+#         instrumentos_lista = instrumentos_lista.filter(preco__range=(preco_min, preco_max))
+
+#     # Paginação
+#     paginator = Paginator(instrumentos_lista, 12)
+#     page = request.GET.get('page')
+#     try:
+#         instrumentos = paginator.page(page)
+#     except PageNotAnInteger:
+#         instrumentos = paginator.page(1)
+#     except EmptyPage:
+#         instrumentos = paginator.page(paginator.num_pages)
+
+#     # Formatação de preço
+#     for instrumento in instrumentos:
+#         instrumento.preco_formatado = locale.currency(instrumento.preco, grouping=True)
+
+#     # Dados para filtros
+#     categorias = Categoria.objects.all()
+
+#     # Filtrar dados de filtro por categoria
+#     if categoria_id:
+#         cores = Instrumento.objects.filter(categoria_id=categoria_id).values_list('cor', flat=True).distinct()
+#         marcas = Marca.objects.filter(instrumento__categoria_id=categoria_id).distinct()
+#         preco_minimo_global = Instrumento.objects.filter(categoria_id=categoria_id).aggregate(Min('preco'))['preco__min'] or 0
+#         preco_maximo_global = Instrumento.objects.filter(categoria_id=categoria_id).aggregate(Max('preco'))['preco__max'] or 5000
+#     else:
+#         cores = Instrumento.objects.values_list('cor', flat=True).distinct()
+#         marcas = Marca.objects.all()
+#         preco_minimo_global = Instrumento.objects.aggregate(Min('preco'))['preco__min'] or 0
+#         preco_maximo_global = Instrumento.objects.aggregate(Max('preco'))['preco__max'] or 5000
+
+#     cores_unicas = sorted(set(filter(None, [cor.strip() for cor in cores])))
+#     precos_categorias = Categoria.objects.annotate(preco_minimo=Min('instrumento__preco'))
+
+#     request.session['total_itens'] = total_itens
+#     request.session.modified = True
+
+#     context = {
+#         'instrumentos': instrumentos,
+#         'categorias': categorias,
+#         'marcas': marcas,
+#         'cores': cores_unicas,
+#         'preco_minimo_global': preco_minimo_global,
+#         'preco_maximo_global': preco_maximo_global,
+#         'precos_categorias': precos_categorias,
+#         'total_itens': total_itens,
+#         'categoria_id_selecionada': categoria_id,
+#         'marcas_ids_selecionadas': marcas_ids,
+#         'cores_selecionadas': cores_selecionadas,
+#         'preco_min_selecionado': preco_min,
+#         'preco_max_selecionado': preco_max,
+#     }
+
+#     return render(request, 'homepage.html', context)
 
 
 def pre_login(request):
