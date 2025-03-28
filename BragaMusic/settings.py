@@ -3,6 +3,8 @@ import os
 import json
 import dj_database_url
 
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -66,6 +68,7 @@ WSGI_APPLICATION = 'BragaMusic.wsgi.app'
 
 
 
+
 PROD = os.environ.get('PROD')
 
 # Configurações para ambiente de produção (Render)
@@ -87,17 +90,6 @@ DATABASES = {
 #             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #         }
 #     }
-
-
-
-
-    
-
-
-
-
-
-
 
 
 
