@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from .views import detalhe_instrumento,login_view,cadastrar_cliente, filtro_instrumentos,adicionar_ao_carrinho,remover_do_carrinho,carrinho,logout_view,homepage,finalizar_pedido,pagamento_retorno
 from instrumento.management_views import run_migrations
-from instrumento.management_users import create_superuser
+#from instrumento.management_users import create_superuser
 
 urlpatterns = [
     path('', homepage, name='homepage'),  # The homepage to list instruments
