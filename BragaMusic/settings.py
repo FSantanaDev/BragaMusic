@@ -66,23 +66,27 @@ WSGI_APPLICATION = 'BragaMusic.wsgi.app'
 
 
 
-
-
-
 PROD = os.environ.get('PROD')
 
-if os.environ.get('RENDER'):  # Verifica se está no ambiente Render
-    DATABASES = {
-        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-    }
-else:
-    # Configurações para desenvolvimento local
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
+# Configurações para ambiente de produção (Render)
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
+
+# PROD = os.environ.get('PROD')
+
+# if os.environ.get('RENDER'):  # Verifica se está no ambiente Render
+#     DATABASES = {
+#         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+#     }
+# else:
+#     # Configurações para desenvolvimento local
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         }
+#     }
 
 
 
