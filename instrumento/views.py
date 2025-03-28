@@ -27,6 +27,7 @@ from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from datetime import datetime
 from instrumento.management_views import run_migrations
+from instrumento.management_users import criar_superuser
 
 def filtro_instrumentos(request):
     total_itens = calcular_total_itens_carrinho(request)
@@ -174,7 +175,7 @@ def cadastrar_cliente(request):
 
 
 def homepage(request):
-    #locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
     total_itens = calcular_total_itens_carrinho(request)
     instrumentos_lista = Instrumento.objects.prefetch_related('imagens').filter(ativo=True)
 
