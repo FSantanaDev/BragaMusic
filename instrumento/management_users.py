@@ -8,7 +8,7 @@ from instrumento.models import Cliente
 def create_superuser(request):
     try:
         # Verifica se já existe um superusuário
-        if not Usuario.objects.filter(is_superuser=True).exists():
+        if not Cliente.objects.filter(is_superuser=True).exists():
             # Chama o método create_superuser da sua classe UsuarioManager
             Cliente.objects.create_superuser(
                 email='bragasan34@gmail.com', 
