@@ -1,4 +1,6 @@
 
+# instrumento/management_users.py
+
 from django.http import HttpResponse
 from django.core.management import call_command
 from .models import Usuario

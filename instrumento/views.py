@@ -1,4 +1,4 @@
-
+# instrumento/views.py
 import logging
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -26,8 +26,8 @@ from django.conf import settings  # Importa as configurações do Django
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from datetime import datetime
-from instrumento.management_views import run_migrations
-from instrumento.management_users import criar_superuser
+#from instrumento.management_views import run_migrations
+#from instrumento.management_users import create_superuser
 
 def filtro_instrumentos(request):
     total_itens = calcular_total_itens_carrinho(request)

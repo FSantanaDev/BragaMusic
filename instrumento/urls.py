@@ -1,3 +1,5 @@
+#instrumento/urls.py
+
 from django.urls import path,include
 from . import views  # Supposing all views are in the same `views` module
 from django.conf.urls.static import static
