@@ -3,14 +3,14 @@
 
 from django.http import HttpResponse
 from django.core.management import call_command
-from .models import Usuario
+from instrumento.models import Cliente
 
 def create_superuser(request):
     try:
         # Verifica se já existe um superusuário
         if not Usuario.objects.filter(is_superuser=True).exists():
             # Chama o método create_superuser da sua classe UsuarioManager
-            Usuario.objects.create_superuser(
+            Cliente.objects.create_superuser(
                 email='bragasan34@gmail.com', 
                 password='101219', 
                 nome='Francisco Santana',  # Aqui você pode colocar o nome do superusuário
