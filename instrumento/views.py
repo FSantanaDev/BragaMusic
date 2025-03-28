@@ -175,7 +175,7 @@ def cadastrar_cliente(request):
 
 
 def homepage(request):
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    #locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
     total_itens = calcular_total_itens_carrinho(request)
     instrumentos_lista = Instrumento.objects.prefetch_related('imagens').filter(ativo=True)
 
