@@ -14,7 +14,7 @@ from .models import Instrumento, Marca, Categoria, Cliente,  ImagemInstrumento,C
 import logging
 from django.contrib import messages
 from django.db.models import Min, Max # Importe os módulos Min e Max para calcular o preço mínimo e máximo do slider
-#import locale # Importe o módulo locale para formatar o preço com o separador de milhar
+
 from .utils import calcular_total_itens_carrinho
 import mercadopago # Importa o módulo mercadopago para fazer a conexao com a api
 from .api_mercadopago import sdk, criar_pagamento  # Importa a função que faz a conexao com a api
@@ -26,8 +26,7 @@ from django.conf import settings  # Importa as configurações do Django
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from datetime import datetime
-#from instrumento.management_views import run_migrations
-#from instrumento.management_users import create_superuser
+
 
 def filtro_instrumentos(request):
     total_itens = calcular_total_itens_carrinho(request)
