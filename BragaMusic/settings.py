@@ -1,11 +1,11 @@
 import os
 from pathlib import Path
-from dotenv import load_dotenv
+
 import dj_database_url
 
-load_dotenv() # Carrega as variaveis do .env
 
-load_dotenv() # Carrega as variaveis do .env
+
+#load_dotenv() # Carrega as variaveis do .env
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # else:
 #    SECRET_KEY = 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#')
+#SECRET_KEY = os.environ.get('SECRET_KEY', 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#')
 
 #SECRET_KEY = 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -25,8 +25,8 @@ DEBUG = True
 
 if os.environ.get('RENDER'):
     ALLOWED_HOSTS = ['*']  # Ou seus hosts específicos
-else:
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']  # Hosts para desenvolvimento local
+# else:
+#     ALLOWED_HOSTS = ['127.0.0.1', 'localhost']  # Hosts para desenvolvimento local
 
 MERCADO_PAGO_PUBLIC_KEY = "APP_USR-aaa24b62-41e7-443a-82ff-f737cab8f01d"
 MERCADO_PAGO_ACCESS_TOKEN = "APP_USR-5090906557242439-031118-de20df38d823da6bbefda51c345df995-2319930959"
@@ -90,14 +90,14 @@ if os.environ.get('RENDER'):  # Verifica se está no ambiente Render
     DATABASES = {
         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
     }
-else:
-    # Configurações para desenvolvimento local
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
+# else:
+#     # Configurações para desenvolvimento local
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         }
+#     }
 
 
 
