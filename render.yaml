@@ -14,4 +14,4 @@ services:
       - key: DATABASE_URL
         value: "postgresql://neondb_owner:npg_diYvCe3O0oBV@ep-wild-mud-a5rr9e9x-pooler.us-east-2.aws.neon.tech/bragamusic_db?sslmode=require"
       - key: DEBUG
-        value: "False"  # ou "True" para depuração
+        value: "False"  # ou "True" para depuração # ou "True" para depuração

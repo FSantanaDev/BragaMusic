@@ -89,19 +89,22 @@ WSGI_APPLICATION = 'BragaMusic.wsgi.app'
 
 PROD = os.environ.get('PROD')
 
-if os.environ.get('RENDER'):  # Verifica se está no ambiente Render
+if os.environ.get('RENDER'):
+    # Configuração para o banco de dados do Render
+    DATABASE_URL = "postgresql://bragamusic_db_user:1tkE7NdnTBEePa156iA2O3quhYScVDB8@dpg-cvk3s9c9c44c738neog0-a/bragamusic_db"
     DATABASES = {
-        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+        'default': dj_database_url.config(default=DATABASE_URL)
     }
-# else:
-#     # Configurações para desenvolvimento local
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
-#     }
+else:
+    # Configuração para desenvolvimento local (se necessário)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',  # Ou outro banco de dados local
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
+# ... (restant
 
 
 
