@@ -26,7 +26,7 @@ DEBUG = False
 # if os.environ.get('RENDER'):
 #     ALLOWED_HOSTS = ['*']  # Ou seus hosts específicos
     
-ALLOWED_HOSTS = ['bragamusic.onrender.com']  # Substitua pelo seu host no Render
+ALLOWED_HOSTS = ['*']  # Substitua pelo seu host no Render
 
 # else:
 #     ALLOWED_HOSTS = ['127.0.0.1', 'localhost']  # Hosts para desenvolvimento local
@@ -122,7 +122,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-SSTATICFILES_DIRS = [
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
