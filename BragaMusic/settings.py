@@ -19,12 +19,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #SECRET_KEY = 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DEBUG = True
+DEBUG = False
 #DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
 
-if os.environ.get('RENDER'):
-    ALLOWED_HOSTS = ['*']  # Ou seus hosts específicos
+# if os.environ.get('RENDER'):
+#     ALLOWED_HOSTS = ['*']  # Ou seus hosts específicos
+    
+ALLOWED_HOSTS = ['bragamusic.onrender.com']  # Substitua pelo seu host no Render
+
 # else:
 #     ALLOWED_HOSTS = ['127.0.0.1', 'localhost']  # Hosts para desenvolvimento local
 
