@@ -14,7 +14,7 @@ token = "APP_USR-5090906557242439-031118-de20df38d823da6bbefda51c345df995-231993
  
 sdk = mercadopago.SDK(settings.MERCADO_PAGO_ACCESS_TOKEN)
 
-# def criar_pagamento(itens, link_retorno, total_geral, pedido_id):
+# def criar_pagamento(itens, link_retorno, total_geral, pedido_id, payer_data=None, shipment_data=None):
 #     locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 #     preference_data = {
 #         "items": [
@@ -40,6 +40,12 @@ sdk = mercadopago.SDK(settings.MERCADO_PAGO_ACCESS_TOKEN)
 #         "currency_id": "BRL",
 #         "locale": "pt-BR"
 #     }
+
+#     # Adiciona os dados do pagador e envio se fornecidos
+#     if payer_data:
+#         preference_data["payer"] = payer_data
+#     if shipment_data:
+#         preference_data["shipments"] = shipment_data
 
 #     # Formatar o unit_price e total_amount como string com duas casas decimais (para exibição)
 #     for item in preference_data['items']:
@@ -70,14 +76,16 @@ sdk = mercadopago.SDK(settings.MERCADO_PAGO_ACCESS_TOKEN)
 #         print("Detalhes do erro:", resposta.get('response', {}))
 #         return None, None
 
+
+
 def criar_pagamento(itens, link_retorno, total_geral, pedido_id, payer_data=None, shipment_data=None):
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+   
     preference_data = {
         "items": [
             {
                 "title": item['nome'],
                 "quantity": item['quantidade'],
-                "unit_price": float(item['preco'].replace('.', '').replace(',', '.')), 
+                "unit_price": float(item['preco']),  # Preço já deve ser float
                 "currency_id": "BRL",
             } for item in itens
         ],
@@ -87,7 +95,7 @@ def criar_pagamento(itens, link_retorno, total_geral, pedido_id, payer_data=None
             "pending": link_retorno,
             "failure": link_retorno,
         },
-        "total_amount": float(total_geral.replace('.', '').replace(',', '.')), 
+        "total_amount": float(total_geral),  # Total geral já deve ser float
         "external_reference": str(pedido_id),
         "metadata": {
             "meio_pagamento": "meio_pagamento_placeholder",
@@ -102,16 +110,6 @@ def criar_pagamento(itens, link_retorno, total_geral, pedido_id, payer_data=None
         preference_data["payer"] = payer_data
     if shipment_data:
         preference_data["shipments"] = shipment_data
-
-    # Formatar o unit_price e total_amount como string com duas casas decimais (para exibição)
-    for item in preference_data['items']:
-        item['unit_price_str'] = "{:.2f}".format(item['unit_price'])  # Armazena a string formatada
-    preference_data['total_amount_str'] = "{:.2f}".format(preference_data['total_amount'])  # Armazena a string formatada
-
-    # Converter unit_price e total_amount de volta para float para o Mercado Pago
-    for item in preference_data['items']:
-        item['unit_price'] = float(item['unit_price_str'])
-    preference_data['total_amount'] = float(preference_data['total_amount_str'])
 
     print("preference_data:", preference_data)
     resposta = sdk.preference().create(preference_data)

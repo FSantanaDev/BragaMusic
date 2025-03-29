@@ -1,12 +1,20 @@
-from pathlib import Path
 import os
-#import json
+from pathlib import Path
+from dotenv import load_dotenv
 import dj_database_url
 
+load_dotenv() # Carrega as variaveis do .env
 
-
+load_dotenv() # Carrega as variaveis do .env
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+# if os.environ.get('SECRET_KEY'):
+#    SECRET_KEY = os.environ.get('SECRET_KEY')
+# else:
+#    SECRET_KEY = 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
+
+SECRET_KEY = os.environ.get('SECRET_KEY', 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#')
 
 #SECRET_KEY = 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
 SECRET_KEY = os.environ.get('SECRET_KEY')

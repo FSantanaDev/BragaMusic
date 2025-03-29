@@ -14,7 +14,7 @@ from .models import Instrumento, Marca, Categoria, Cliente,  ImagemInstrumento,C
 import logging
 from django.contrib import messages
 from django.db.models import Min, Max # Importe os módulos Min e Max para calcular o preço mínimo e máximo do slider
-import locale # Importe o módulo locale para formatar o preço com o separador de milhar
+#import locale # Importe o módulo locale para formatar o preço com o separador de milhar
 from .utils import calcular_total_itens_carrinho
 import mercadopago # Importa o módulo mercadopago para fazer a conexao com a api
 from .api_mercadopago import sdk, criar_pagamento  # Importa a função que faz a conexao com a api
@@ -427,8 +427,99 @@ def adicionar_ao_carrinho(request, instrumento_id):
 
 
 logger = logging.getLogger(__name__)
+# def carrinho(request):
+#     #locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+#     total_itens = calcular_total_itens_carrinho(request)
+#     itens_carrinho = []
+#     total_geral = 0
+#     total_itens_quantidade = 0
+
+#     logger.info(f"Acessando a view carrinho. Usuário autenticado: {request.user.is_authenticated}")
+
+#     if request.user.is_authenticated:
+#         logger.info(f"Usuário autenticado: {request.user.email}")
+#         logger.info(f"Usuario logado: {request.user.is_authenticated}")
+#         carrinho_itens_db = Carrinho.objects.filter(cliente=request.user)
+#         logger.info(f"Itens do carrinho (banco de dados): {carrinho_itens_db}")
+
+#         for item in carrinho_itens_db:
+#             instrumento = item.instrumento
+#             preco = instrumento.preco
+#             quantidade = item.quantidade
+#             total_item = preco * quantidade
+#             total_geral += total_item
+#             total_itens_quantidade += quantidade
+
+#             #preco_formatado = locale.currency(preco, grouping=True)
+            
+#             preco_formatado = formatar_preco_real(preco_formatado)
+            
+#             #total_item_formatado = locale.currency(total_item, grouping=True)
+
+#             total_item_formatado = formatar_preco_real(total_item_formatado)
+
+#             primeira_imagem = ImagemInstrumento.objects.filter(instrumento=instrumento).first()
+#             imagem_url = primeira_imagem.imagem.url if primeira_imagem else None
+
+#             itens_carrinho.append({
+#                 'id': instrumento.id,
+#                 'nome': instrumento.nome,
+#                 'preco': preco_formatado,
+#                 'quantidade': quantidade,
+#                 'total_item': total_item_formatado,
+#                 'imagem': imagem_url,
+#             })
+#     else:
+#         logger.info(f"Usuário não autenticado. Sessão: {request.session.get('carrinho')}")
+#         carrinho_sessao = request.session.get('carrinho', {})
+#         for instrumento_id, item in carrinho_sessao.items():
+#             try:
+#                 instrumento = Instrumento.objects.get(pk=instrumento_id)
+#                 preco = instrumento.preco
+#                 quantidade = item['quantidade']
+#                 total_item = preco * quantidade
+#                 total_geral += total_item
+#                 total_itens_quantidade += quantidade
+
+#                 #preco_formatado = locale.currency(preco, grouping=True)
+#                 preco_formatado = formatar_preco_real(preco_formatado)
+                
+                
+#                 #total_item_formatado = locale.currency(total_item, grouping=True)
+#                 total_item_formatado = formatar_preco_real(total_item_formatado)
+                
+
+#                 primeira_imagem = ImagemInstrumento.objects.filter(instrumento=instrumento).first()
+#                 imagem_url = primeira_imagem.imagem.url if primeira_imagem else None
+
+#                 itens_carrinho.append({
+#                     'id': instrumento_id,
+#                     'nome': item['nome'],
+#                     'preco': preco_formatado,
+#                     'quantidade': quantidade,
+#                     'total_item': total_item_formatado,
+#                     'imagem': imagem_url,
+#                 })
+#             except Instrumento.DoesNotExist:
+#                 logger.error(f"Instrumento com ID {instrumento_id} não encontrado.")
+
+#     total_geral_formatado = locale.currency(total_geral, grouping=True)
+#     logger.info(f"Itens no carrinho: {itens_carrinho}")
+
+#     # Atualizar a sessão
+#     request.session['total_itens'] = total_itens_quantidade
+#     request.session.modified = True
+
+#     return render(request, 'carrinho.html', {
+#         'itens_carrinho': itens_carrinho,
+#         'total_geral': total_geral_formatado,
+#         'total_itens': total_itens_quantidade,
+#  })
+ 
+ 
+ 
 def carrinho(request):
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    #locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
     total_itens = calcular_total_itens_carrinho(request)
     itens_carrinho = []
     total_geral = 0
@@ -450,8 +541,8 @@ def carrinho(request):
             total_geral += total_item
             total_itens_quantidade += quantidade
 
-            preco_formatado = locale.currency(preco, grouping=True)
-            total_item_formatado = locale.currency(total_item, grouping=True)
+            preco_formatado = formatar_preco_real(preco)
+            total_item_formatado = formatar_preco_real(total_item)
 
             primeira_imagem = ImagemInstrumento.objects.filter(instrumento=instrumento).first()
             imagem_url = primeira_imagem.imagem.url if primeira_imagem else None
@@ -476,8 +567,8 @@ def carrinho(request):
                 total_geral += total_item
                 total_itens_quantidade += quantidade
 
-                preco_formatado = locale.currency(preco, grouping=True)
-                total_item_formatado = locale.currency(total_item, grouping=True)
+                preco_formatado = formatar_preco_real(preco)
+                total_item_formatado = formatar_preco_real(total_item)
 
                 primeira_imagem = ImagemInstrumento.objects.filter(instrumento=instrumento).first()
                 imagem_url = primeira_imagem.imagem.url if primeira_imagem else None
@@ -493,7 +584,7 @@ def carrinho(request):
             except Instrumento.DoesNotExist:
                 logger.error(f"Instrumento com ID {instrumento_id} não encontrado.")
 
-    total_geral_formatado = locale.currency(total_geral, grouping=True)
+    total_geral_formatado = formatar_preco_real(total_geral)
     logger.info(f"Itens no carrinho: {itens_carrinho}")
 
     # Atualizar a sessão
@@ -505,17 +596,47 @@ def carrinho(request):
         'total_geral': total_geral_formatado,
         'total_itens': total_itens_quantidade,
     })
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
        
     
 
 def detalhe_instrumento(request, instrumento_id):
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    #locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
     instrumento = get_object_or_404(Instrumento, id=instrumento_id)
     imagens_secundarias = instrumento.imagens.all()[1:]
     total_itens = calcular_total_itens_carrinho(request)
 
     # Formatar o preço do instrumento
-    instrumento.preco_formatado = locale.currency(instrumento.preco, grouping=True)
+    #instrumento.preco_formatado = locale.currency(instrumento.preco, grouping=True)
+    instrumento.preco_formatado = formatar_preco_real(instrumento.preco) #locale.currency(instrumento.preco, grouping=True).replace('.', '')
 
     # Atualizar a sessão
     request.session['total_itens'] = total_itens
@@ -578,16 +699,99 @@ def user_is_authenticated(user):
     return user.is_authenticated
 
 @user_passes_test(user_is_authenticated, login_url='/pre-login/')
+# def finalizar_pedido(request):
+#     locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+#     carrinho_itens_db = Carrinho.objects.filter(cliente=request.user)
+#     total_geral = 0
+#     items = []
+
+#     # Extrai os dados do usuário logado
+#     nome_completo = request.user.nome_completo
+#     nome = nome_completo.split()[0] if nome_completo else "" # Pega o primeiro nome
+#     sobrenome = " ".join(nome_completo.split()[1:]) if len(nome_completo.split()) > 1 else "" # Pega o sobrenome
+#     email = request.user.email
+#     cpf = request.user.cpf
+#     cep = request.user.cep
+#     endereco = request.user.endereco
+#     numero = request.user.numero
+#     complemento = request.user.complemento
+
+#     # Prepara os dados do pagador
+#     payer_data = {
+#         "name": nome,
+#         "surname": sobrenome,
+#         "email": email,
+#         "identification": {
+#             "type": "CPF",
+#             "number": cpf
+#         },
+#         "address": {
+#             "zip_code": cep,
+#             "street_name": endereco,
+#             "street_number": numero,
+#             "complement": complemento,
+#         }
+#     }
+
+#     # Prepara os dados de envio
+#     shipment_data = {
+#         "receiver_address": {
+#             "zip_code": cep,
+#             "street_name": endereco,
+#             "street_number": numero,
+#             "complement": complemento,
+#         }
+#     }
+
+#     pedido = Pedido.objects.create(cliente=request.user, valor_total=0)
+
+#     for item in carrinho_itens_db:
+#         instrumento = item.instrumento
+#         quantidade = item.quantidade
+#         preco_unitario = instrumento.preco
+#         total_item = preco_unitario * quantidade
+
+#         total_geral += total_item
+
+#         ItemPedido.objects.create(pedido=pedido, instrumento=instrumento, quantidade=quantidade, preco_unitario=preco_unitario)
+
+#         items.append({
+#             "nome": instrumento.nome,
+#             "quantidade": quantidade,
+#             "preco": preco_unitario
+#         })
+
+#     pedido.valor_total = total_geral
+#     pedido.save()
+
+#     retorno_url = request.build_absolute_uri(reverse('pagamento_retorno'))
+
+#     total_geral_formatado = locale.format_string("%.2f", total_geral, grouping=True)
+#     items_formatados = [{
+#         "nome": item['nome'],
+#         "quantidade": item['quantidade'],
+#         "preco": locale.format_string("%.2f", item['preco'], grouping=True)
+#     } for item in items]
+
+#     payment_link, preference_id = criar_pagamento(items_formatados, retorno_url, total_geral_formatado, str(pedido.id), payer_data, shipment_data)
+#     print(preco_unitario)
+#     print(total_geral)
+
+#     if payment_link:
+#         return redirect(payment_link)
+#     else:
+#         return render(request, 'erro_pagamento.html')
+
+
 def finalizar_pedido(request):
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
     carrinho_itens_db = Carrinho.objects.filter(cliente=request.user)
     total_geral = 0
     items = []
 
     # Extrai os dados do usuário logado
     nome_completo = request.user.nome_completo
-    nome = nome_completo.split()[0] if nome_completo else "" # Pega o primeiro nome
-    sobrenome = " ".join(nome_completo.split()[1:]) if len(nome_completo.split()) > 1 else "" # Pega o sobrenome
+    nome = nome_completo.split()[0] if nome_completo else ""
+    sobrenome = " ".join(nome_completo.split()[1:]) if len(nome_completo.split()) > 1 else ""
     email = request.user.email
     cpf = request.user.cpf
     cep = request.user.cep
@@ -645,14 +849,29 @@ def finalizar_pedido(request):
 
     retorno_url = request.build_absolute_uri(reverse('pagamento_retorno'))
 
-    total_geral_formatado = locale.format_string("%.2f", total_geral, grouping=True)
-    items_formatados = [{
-        "nome": item['nome'],
-        "quantidade": item['quantidade'],
-        "preco": locale.format_string("%.2f", item['preco'], grouping=True)
-    } for item in items]
+    items_formatados = []
+    for item in items:
+        preco_str = str(item['preco']).replace('R$', '').replace('.', '').replace(',', '.')
+        try:
+            preco_float = float(preco_str.strip())
+        except ValueError as e:
+            print(f"Erro ao converter preço: {e}")
+            preco_float = 0.0  # Ou outro valor padrão, dependendo do tratamento de erro desejado
 
-    payment_link, preference_id = criar_pagamento(items_formatados, retorno_url, total_geral_formatado, str(pedido.id), payer_data, shipment_data)
+        items_formatados.append({
+            "nome": item['nome'],
+            "quantidade": item['quantidade'],
+            "preco": preco_float
+        })
+
+    total_geral_str = str(total_geral).replace('R$', '').replace('.', '').replace(',', '.')
+    try:
+        total_geral_float = float(total_geral_str.strip())
+    except ValueError as e:
+        print(f"Erro ao converter total geral: {e}")
+        total_geral_float = 0.0  # Ou outro valor padrão, dependendo do tratamento de erro desejado
+
+    payment_link, preference_id = criar_pagamento(items_formatados, retorno_url, total_geral_float, str(pedido.id), payer_data, shipment_data)
     print(preco_unitario)
     print(total_geral)
 
@@ -660,6 +879,34 @@ def finalizar_pedido(request):
         return redirect(payment_link)
     else:
         return render(request, 'erro_pagamento.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
