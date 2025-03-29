@@ -6,7 +6,7 @@ import dj_database_url
 
 
 #load_dotenv() # Carrega as variaveis do .env
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # if os.environ.get('SECRET_KEY'):
@@ -115,11 +115,12 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR/ "Staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATICFILES_DIRS = [BASE_DIR / "static"
+SSTATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 
