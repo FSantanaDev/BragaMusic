@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'BragaMusic.wsgi.app'
 #     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 # }
 
-PROD = os.environ.get('PROD')
+#PROD = os.environ.get('PROD')
 
 if os.environ.get('RENDER'):
     # Configuração para o banco de dados do Render
