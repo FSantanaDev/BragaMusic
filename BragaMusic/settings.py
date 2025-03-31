@@ -6,8 +6,8 @@ import dj_database_url
 
 
 #load_dotenv() # Carrega as variaveis do .env
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # if os.environ.get('SECRET_KEY'):
 #    SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -80,14 +80,6 @@ WSGI_APPLICATION = 'BragaMusic.wsgi.app'
 
 
 
-# PROD = os.environ.get('PROD')
-
-# # Configurações para ambiente de produção (Render)
-# DATABASES = {
-#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-# }
-
-#PROD = os.environ.get('PROD')
 
 if os.environ.get('RENDER'):
     # Configuração para o banco de dados do Render

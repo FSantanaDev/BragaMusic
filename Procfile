@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn BragaMusic.wsgi --log-file -
+web: gunicorn BragaMusic.wsgi
