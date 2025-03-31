@@ -14,12 +14,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Chave secreta para o projeto Django.
 # Recomenda-se obter isso de uma variável de ambiente em produção para segurança.
-SECRET_KEY = os.environ.get('SECRET_KEY', 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#')
-
+#SECRET_KEY = os.environ.get('SECRET_KEY', 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#')
+SECRET_KEY =  'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
 # Modo de depuração.
 # Deve ser False em produção.  Use uma variável de ambiente para controlar isso.
-DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
-
+#DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
+DEBUG = False
 # Hosts permitidos.
 # Em produção, você deve especificar seus nomes de domínio reais.
 # '*' permite todos os hosts, o que não é seguro para produção.
@@ -66,6 +66,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -97,8 +98,6 @@ else:
     }
 
 
-
-
 # Modelo de usuário personalizado.
 AUTH_USER_MODEL = "instrumento.Cliente"
 
@@ -127,7 +126,7 @@ USE_I18N = True
 USE_TZ = True
 
 # Configurações de arquivos estáticos.
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # Comente essa linha para previnir erros em alguns casos
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # Comente essa linha para previnir erros em alguns casos
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Diretório onde os arquivos estáticos são coletados
 MEDIA_URL = '/media/'  # URL para arquivos de mídia (uploads do usuário)
