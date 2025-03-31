@@ -3,37 +3,33 @@ from pathlib import Path
 
 import dj_database_url
 
+# Carrega as variáveis de ambiente do arquivo .env (se você estiver usando um)
+# Se você estiver usando um arquivo .env para armazenar suas variáveis de ambiente,
+# certifique-se de que ele esteja instalado e descomente a linha abaixo.
+# from dotenv import load_dotenv
+# load_dotenv()
 
-
-#load_dotenv() # Carrega as variaveis do .env
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Define o diretório base do projeto.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# if os.environ.get('SECRET_KEY'):
-#    SECRET_KEY = os.environ.get('SECRET_KEY')
-# else:
-#    SECRET_KEY = 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
+# Chave secreta para o projeto Django.
+# Recomenda-se obter isso de uma variável de ambiente em produção para segurança.
+SECRET_KEY = os.environ.get('SECRET_KEY', 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#')
 
-#SECRET_KEY = os.environ.get('SECRET_KEY', 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#')
+# Modo de depuração.
+# Deve ser False em produção.  Use uma variável de ambiente para controlar isso.
+DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
-SECRET_KEY = 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
-#SECRET_KEY = os.environ.get('SECRET_KEY')
+# Hosts permitidos.
+# Em produção, você deve especificar seus nomes de domínio reais.
+# '*' permite todos os hosts, o que não é seguro para produção.
+ALLOWED_HOSTS = ['*']  # ou seus hosts específicos
 
-DEBUG = False
-#DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
-
-
-# if os.environ.get('RENDER'):
-#     ALLOWED_HOSTS = ['*']  # Ou seus hosts específicos
-    
-ALLOWED_HOSTS = ['*']  # Substitua pelo seu host no Render
-
-# else:
-#     ALLOWED_HOSTS = ['127.0.0.1', 'localhost']  # Hosts para desenvolvimento local
-
+# Configurações do Mercado Pago
 MERCADO_PAGO_PUBLIC_KEY = "APP_USR-aaa24b62-41e7-443a-82ff-f737cab8f01d"
 MERCADO_PAGO_ACCESS_TOKEN = "APP_USR-5090906557242439-031118-de20df38d823da6bbefda51c345df995-2319930959"
 
+# Aplicativos instalados no projeto Django.
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,13 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'instrumento',
+    'instrumento',  # Seu aplicativo
     'django.contrib.humanize',
 ]
 
+# Middlewares do Django.
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Para servir arquivos estáticos em produção
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -56,12 +53,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Arquivo de configuração de URL raiz do projeto.
 ROOT_URLCONF = 'BragaMusic.urls'
 
+# Configurações de templates do Django.
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Diretório de templates do projeto
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,13 +73,14 @@ TEMPLATES = [
     },
 ]
 
+# Configuração do WSGI (Web Server Gateway Interface).
 WSGI_APPLICATION = 'BragaMusic.wsgi.app'
-#WSGI_APPLICATION = 'BragaMusic.wsgi.application'
+# WSGI_APPLICATION = 'BragaMusic.wsgi.application' # Verifique se esta linha está correta
 
 
 
-
-
+# Configuração do banco de dados.
+# Use variáveis de ambiente para a URL do banco de dados em produção.
 if os.environ.get('RENDER'):
     # Configuração para o banco de dados do Render
     DATABASE_URL = "postgresql://bragamusic_db_user:1tkE7NdnTBEePa156iA2O3quhYScVDB8@dpg-cvk3s9c9c44c738neog0-a/bragamusic_db"
@@ -88,40 +88,56 @@ if os.environ.get('RENDER'):
         'default': dj_database_url.config(default=DATABASE_URL)
     }
 else:
-    # Configuração para desenvolvimento local (se necessário)
+    # Configuração para desenvolvimento local (SQLite)
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',  # Ou outro banco de dados local
+            'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
 
-# ... (restant
 
 
 
-
-
+# Modelo de usuário personalizado.
 AUTH_USER_MODEL = "instrumento.Cliente"
 
+# Validadores de senha.
+# Você pode descomentar e personalizar isso em produção para aumentar a segurança.
 AUTH_PASSWORD_VALIDATORS = []
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
 
+# Configurações de internacionalização.
 LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Manaus'
 USE_I18N = True
 USE_TZ = True
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Configurações de arquivos estáticos.
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # Comente essa linha para previnir erros em alguns casos
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Diretório onde os arquivos estáticos são coletados
+MEDIA_URL = '/media/'  # URL para arquivos de mídia (uploads do usuário)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Diretório onde os arquivos de mídia são armazenados
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'),  # Outros diretórios onde os arquivos estáticos podem estar
 ]
 
-
+# Configurações de logging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -133,10 +149,10 @@ LOGGING = {
     'loggers': {
         '': {
             'handlers': ['console'],
-            'level': os.environ.get('DJANGO_LOG_LEVEL', 'INFO'),
+            'level': os.environ.get('DJANGO_LOG_LEVEL', 'INFO'),  # Use uma variável de ambiente para o nível de log
         },
     },
 }
 
+# Configuração do campo de ID automático padrão.
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
