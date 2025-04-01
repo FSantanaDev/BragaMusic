@@ -57,7 +57,7 @@ class InstrumentoAdmin(admin.ModelAdmin):
 
 # Configuração de Imagem do Instrumento
 class ImagemInstrumentoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'instrumento', 'imagem_url')  # Alterado para 'imagem_url'
+    list_display = ('id', 'instrumento', 'imagem')  # Alterado para 'imagem_url'
     search_fields = ('instrumento__nome',)
 
 # Configuração de Pedido
