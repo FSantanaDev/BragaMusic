@@ -139,11 +139,11 @@ class ImagemInstrumento(models.Model):
         verbose_name="Instrumento"
     )
     imagem = models.ImageField(
-        upload_to='instrumentos/imagens/', 
-        verbose_name="Imagem do Instrumento"
+    upload_to='',
+    verbose_name="Imagem do Instrumento"
     )
     descricao = models.CharField(
-        max_length=255, 
+        max_length=300, 
         blank=True, 
         null=True, 
         verbose_name="Descrição da Imagem"
