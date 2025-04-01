@@ -138,10 +138,19 @@ class ImagemInstrumento(models.Model):
         related_name='imagens',  # Permite acessar as imagens com `instrumento.imagens.all()`
         verbose_name="Instrumento"
     )
-    imagem = models.ImageField(
-    upload_to='',
-    verbose_name="Imagem do Instrumento"
+    # imagem = models.ImageField(
+    # upload_to='',
+    # verbose_name="Imagem do Instrumento"
+    # )
+    imagem_url = models.URLField(  # Alterado para URLField
+        max_length=500,  # Aumentei o max_length para acomodar URLs longos
+        verbose_name="URL da Imagem do Instrumento"
     )
+    
+    
+    
+    
+    
     descricao = models.CharField(
         max_length=300, 
         blank=True, 

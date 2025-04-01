@@ -50,9 +50,14 @@ class InstrumentoAdmin(admin.ModelAdmin):
     ordering = ('nome',)
     prepopulated_fields = {"slug": ("nome",)}
 
+# # Configuração de Imagem do Instrumento
+# class ImagemInstrumentoAdmin(admin.ModelAdmin):
+#     list_display = ('id', 'instrumento', 'imagem')
+#     search_fields = ('instrumento__nome',)
+
 # Configuração de Imagem do Instrumento
 class ImagemInstrumentoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'instrumento', 'imagem')
+    list_display = ('id', 'instrumento', 'imagem_url')  # Alterado para 'imagem_url'
     search_fields = ('instrumento__nome',)
 
 # Configuração de Pedido

@@ -1,3 +1,5 @@
+<!-- instrumento/templates/product_list.html -->
+
 {% load static %}
 {% if instrumentos %}
     <div class="product-grid">
@@ -5,7 +7,7 @@
             <div class="product">
                 <a href="{% url 'detalhe_instrumento' instrumento.id %}">
                     {% if instrumento.imagens.first %}
-                        <img src="{{ instrumento.imagens.first.imagem_url }}" alt="{{ instrumento.nome }}" />
+                        <img src="{{ instrumento.imagens.first.imagem.url }}" alt="{{ instrumento.nome }}" />
                     {% else %}
                         <img src="{% static 'img/default-image.jpg' %}" alt="Imagem não disponível" />
                     {% endif %}
@@ -17,6 +19,7 @@
             </div>
         {% endfor %}
     </div>
+
     <div class="pagination">
         {% if instrumentos.has_previous %}
             <a href="?page={{ instrumentos.previous_page_number }}" class="page-link">&lt;&lt; Anterior</a>
