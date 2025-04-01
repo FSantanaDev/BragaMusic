@@ -13,7 +13,7 @@ SECRET_KEY =  'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
 
 # Modo de depuração.
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['bragamusic.onrender.com']  # ou seus hosts específicos
 
