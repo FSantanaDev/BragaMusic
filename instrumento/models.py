@@ -132,7 +132,7 @@ class Instrumento(models.Model):
 
 
 class ImagemInstrumento(models.Model):
-    instrumento = models.ForeignKey(
+    instrumento = models.ForeignKey(                          
         'Instrumento', 
         on_delete=models.CASCADE, 
         related_name='imagens',  # Permite acessar as imagens com `instrumento.imagens.all()`

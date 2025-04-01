@@ -17,8 +17,6 @@ __pycache__/
 *.db
 
 # Arquivos de mídia e estáticos (se você não os versionar)
-media/
-static/
 
 # Arquivos do Django
 *.log

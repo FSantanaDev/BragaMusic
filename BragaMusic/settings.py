@@ -76,9 +76,9 @@ WSGI_APPLICATION = 'BragaMusic.wsgi.application' # Verifique se esta linha está
 # Use variáveis de ambiente para a URL do banco de dados em produção.
 if os.environ.get('RENDER'):
     # Configuração para o banco de dados do Render
-    DATABASE_URL = "postgresql://bragamusic_db_user:1tkE7NdnTBEePa156iA2O3quhYScVDB8@dpg-cvk3s9c9c44c738neog0-a/bragamusic_db"
+    DATABASE_URL = os.environ.get('EXTERNAL_DATABASE_URL') # Usa a variável de ambiente EXTERNAL_DATABASE_URL
     DATABASES = {
-        'default': dj_database_url.config(default=DATABASE_URL)
+        'default': dj_database_url.config(default=DATABASE_URL, ssl_require=True) # Adicionado ssl_require=True
     }
 else:
     # Configuração para desenvolvimento local (SQLite)
