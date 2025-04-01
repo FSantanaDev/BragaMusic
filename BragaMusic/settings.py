@@ -1,26 +1,25 @@
 import os
 from pathlib import Path
+
 import dj_database_url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+
+# Define o diretório base do projeto.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Chave secreta para o projeto Django.
-# Em produção, você deve obter isso de uma variável de ambiente para segurança.
-SECRET_KEY = os.environ.get('SECRET_KEY', 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#')
+
+SECRET_KEY =  'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
 
 # Modo de depuração.
-# Deve ser False em produção. Use uma variável de ambiente para controlar isso.
-DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true' # Alterado para False por padrão
 
-# Hosts permitidos.
-# Em produção, você deve especificar seus nomes de domínio reais.
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',') # Alterado para ler de variável de ambiente e permitir múltiplos hosts
+DEBUG = False
+
+ALLOWED_HOSTS = ['bragamusic.onrender.com']  # ou seus hosts específicos
 
 # Configurações do Mercado Pago
 MERCADO_PAGO_PUBLIC_KEY = "APP_USR-aaa24b62-41e7-443a-82ff-f737cab8f01d"
 MERCADO_PAGO_ACCESS_TOKEN = "APP_USR-5090906557242439-031118-de20df38d823da6bbefda51c345df995-2319930959"
-
 
 # Aplicativos instalados no projeto Django.
 INSTALLED_APPS = [
@@ -68,15 +67,18 @@ TEMPLATES = [
 ]
 
 # Configuração do WSGI (Web Server Gateway Interface).
-WSGI_APPLICATION = 'BragaMusic.wsgi.app' # ou 'BragaMusic.wsgi.application'
+#WSGI_APPLICATION = 'BragaMusic.wsgi.app'
+WSGI_APPLICATION = 'BragaMusic.wsgi.application' # Verifique se esta linha está correta
+
+
 
 # Configuração do banco de dados.
 # Use variáveis de ambiente para a URL do banco de dados em produção.
 if os.environ.get('RENDER'):
     # Configuração para o banco de dados do Render
-    DATABASE_URL = os.environ.get('EXTERNAL_DATABASE_URL') # Usa a variável de ambiente EXTERNAL_DATABASE_URL
+    DATABASE_URL = "postgresql://bragamusic_db_user:1tkE7NdnTBEePa156iA2O3quhYScVDB8@dpg-cvk3s9c9c44c738neog0-a/bragamusic_db"
     DATABASES = {
-        'default': dj_database_url.config(default=DATABASE_URL, ssl_require=True) # Adicionado ssl_require=True
+        'default': dj_database_url.config(default=DATABASE_URL, ssl_require=True)
     }
 else:
     # Configuração para desenvolvimento local (SQLite)
@@ -116,6 +118,7 @@ USE_I18N = True
 USE_TZ = True
 
 # Configurações de arquivos estáticos.
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # Comente essa linha para previnir erros em alguns casos
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Diretório onde os arquivos estáticos são coletados
 MEDIA_URL = '/media/'  # URL para arquivos de mídia (uploads do usuário)
