@@ -118,7 +118,7 @@ USE_I18N = True
 USE_TZ = True
 
 # Configurações de arquivos estáticos.
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # Comente essa linha para previnir erros em alguns casos
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # Comente essa linha para previnir erros em alguns casos
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Diretório onde os arquivos estáticos são coletados
 MEDIA_URL = '/media/'  # URL para arquivos de mídia (uploads do usuário)
