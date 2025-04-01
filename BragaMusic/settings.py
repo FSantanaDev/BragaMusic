@@ -3,27 +3,19 @@ from pathlib import Path
 
 import dj_database_url
 
-# Carrega as variáveis de ambiente do arquivo .env (se você estiver usando um)
-# Se você estiver usando um arquivo .env para armazenar suas variáveis de ambiente,
-# certifique-se de que ele esteja instalado e descomente a linha abaixo.
-# from dotenv import load_dotenv
-# load_dotenv()
+
 
 # Define o diretório base do projeto.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Chave secreta para o projeto Django.
-# Recomenda-se obter isso de uma variável de ambiente em produção para segurança.
-#SECRET_KEY = os.environ.get('SECRET_KEY', 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#')
+
 SECRET_KEY =  'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
+
 # Modo de depuração.
-# Deve ser False em produção.  Use uma variável de ambiente para controlar isso.
-#DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
+
 DEBUG = False
-# Hosts permitidos.
-# Em produção, você deve especificar seus nomes de domínio reais.
-# '*' permite todos os hosts, o que não é seguro para produção.
-ALLOWED_HOSTS = ['*']  # ou seus hosts específicos
+
+ALLOWED_HOSTS = ['https://bragamusic.onrender.com/']  # ou seus hosts específicos
 
 # Configurações do Mercado Pago
 MERCADO_PAGO_PUBLIC_KEY = "APP_USR-aaa24b62-41e7-443a-82ff-f737cab8f01d"
@@ -75,8 +67,8 @@ TEMPLATES = [
 ]
 
 # Configuração do WSGI (Web Server Gateway Interface).
-WSGI_APPLICATION = 'BragaMusic.wsgi.app'
-# WSGI_APPLICATION = 'BragaMusic.wsgi.application' # Verifique se esta linha está correta
+#WSGI_APPLICATION = 'BragaMusic.wsgi.app'
+WSGI_APPLICATION = 'BragaMusic.wsgi.application' # Verifique se esta linha está correta
 
 
 
