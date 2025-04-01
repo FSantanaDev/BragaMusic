@@ -15,7 +15,7 @@ SECRET_KEY =  'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://bragamusic.onrender.com/']  # ou seus hosts específicos
+ALLOWED_HOSTS = ['bragamusic.onrender.com']  # ou seus hosts específicos
 
 # Configurações do Mercado Pago
 MERCADO_PAGO_PUBLIC_KEY = "APP_USR-aaa24b62-41e7-443a-82ff-f737cab8f01d"
