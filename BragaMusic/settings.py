@@ -1,25 +1,26 @@
 import os
 from pathlib import Path
-
 import dj_database_url
 
-
-
-# Define o diretório base do projeto.
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-SECRET_KEY =  'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
+# Chave secreta para o projeto Django.
+# Em produção, você deve obter isso de uma variável de ambiente para segurança.
+SECRET_KEY = os.environ.get('SECRET_KEY', 'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#')
 
 # Modo de depuração.
+# Deve ser False em produção. Use uma variável de ambiente para controlar isso.
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true' # Alterado para False por padrão
 
-DEBUG = False
-
-ALLOWED_HOSTS = ['bragamusic.onrender.com']  # ou seus hosts específicos
+# Hosts permitidos.
+# Em produção, você deve especificar seus nomes de domínio reais.
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',') # Alterado para ler de variável de ambiente e permitir múltiplos hosts
 
 # Configurações do Mercado Pago
 MERCADO_PAGO_PUBLIC_KEY = "APP_USR-aaa24b62-41e7-443a-82ff-f737cab8f01d"
 MERCADO_PAGO_ACCESS_TOKEN = "APP_USR-5090906557242439-031118-de20df38d823da6bbefda51c345df995-2319930959"
+
 
 # Aplicativos instalados no projeto Django.
 INSTALLED_APPS = [
@@ -67,10 +68,7 @@ TEMPLATES = [
 ]
 
 # Configuração do WSGI (Web Server Gateway Interface).
-#WSGI_APPLICATION = 'BragaMusic.wsgi.app'
-WSGI_APPLICATION = 'BragaMusic.wsgi.application' # Verifique se esta linha está correta
-
-
+WSGI_APPLICATION = 'BragaMusic.wsgi.app' # ou 'BragaMusic.wsgi.application'
 
 # Configuração do banco de dados.
 # Use variáveis de ambiente para a URL do banco de dados em produção.
@@ -118,7 +116,6 @@ USE_I18N = True
 USE_TZ = True
 
 # Configurações de arquivos estáticos.
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # Comente essa linha para previnir erros em alguns casos
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Diretório onde os arquivos estáticos são coletados
 MEDIA_URL = '/media/'  # URL para arquivos de mídia (uploads do usuário)
