@@ -9,13 +9,13 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY =  'm0(f51&nilbj_)m+^wog@3lw3-posmb8^)mx3_%&e+jor4t*t#'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Modo de depuração.
 
-DEBUG = False
+DEBUG = int(os.environ.get('DJANGO_DEBUG', default=0))
 
-ALLOWED_HOSTS = ['bragamusic.onrender.com']  # ou seus hosts específicos
+ALLOWED_HOSTS =str(os.environ.get('DJANGO_ALLOWED_HOSTS')).split  # ou seus hosts específicos
 
 # Configurações do Mercado Pago
 MERCADO_PAGO_PUBLIC_KEY = "APP_USR-aaa24b62-41e7-443a-82ff-f737cab8f01d"
@@ -67,22 +67,14 @@ TEMPLATES = [
 ]
 
 # Configuração do WSGI (Web Server Gateway Interface).
-#WSGI_APPLICATION = 'BragaMusic.wsgi.app'
-WSGI_APPLICATION = 'BragaMusic.wsgi.application' # Verifique se esta linha está correta
+WSGI_APPLICATION = 'BragaMusic.wsgi.app'
+#WSGI_APPLICATION = 'BragaMusic.wsgi.application' # Verifique se esta linha está correta
 
 
 
 # Configuração do banco de dados.
 # Use variáveis de ambiente para a URL do banco de dados em produção.
-if os.environ.get('RENDER'):
-    # Configuração para o banco de dados do Render
-    DATABASE_URL = "postgresql://bragamusic_db_user:1tkE7NdnTBEePa156iA2O3quhYScVDB8@dpg-cvk3s9c9c44c738neog0-a/bragamusic_db"
-    DATABASES = {
-        'default': dj_database_url.config(default=DATABASE_URL, ssl_require=True)
-    }
-else:
-    # Configuração para desenvolvimento local (SQLite)
-    DATABASES = {
+DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
