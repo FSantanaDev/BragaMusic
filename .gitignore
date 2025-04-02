@@ -13,7 +13,7 @@ __pycache__/
 .coverage
 
 # Arquivos de banco de dados
-
+db.sqlite3
 
 # Arquivos de mídia e estáticos (se você não os versionar)
 

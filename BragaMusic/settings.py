@@ -9,7 +9,7 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SEECRET_KEY')
 
 # Modo de depuração.
 
@@ -68,7 +68,6 @@ TEMPLATES = [
 
 # Configuração do WSGI (Web Server Gateway Interface).
 WSGI_APPLICATION = 'BragaMusic.wsgi.app'
-#WSGI_APPLICATION = 'BragaMusic.wsgi.application' # Verifique se esta linha está correta
 
 
 
