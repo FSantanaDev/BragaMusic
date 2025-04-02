@@ -27,7 +27,6 @@
         <h2>{{ instrumento.nome }}</h2>
         <p><strong>Marca:</strong> {{ instrumento.marca }}</p>
         <p><strong>Preço:</strong> <span class="preco-novo">{{ instrumento.preco_formatado }}</span></p>
-        {% comment %} <a href="{% url 'adicionar_ao_carrinho' instrumento.id %}">Adicionar ao carrinho</a>  {% endcomment %}
         <a href="{% url 'adicionar_ao_carrinho' instrumento.id %}" class="btn-adicionar-carrinho">Adicionar ao carrinho</a>
       
 

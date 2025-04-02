@@ -16,7 +16,7 @@
 </head>
 <body>
    
-    {% comment %} <link rel="stylesheet" href="{% static 'css/base.css' %}"> {% endcomment %}
+    
     <header> 
         <div class="top-header">
             <div class="security">
@@ -129,11 +129,11 @@
                 <li><a href="{% url 'homepage' %}?categoria=1" class="no-link-style">Violões</a></li>
                
                 </li>
-                <li><a href="{% url 'homepage' %}?categoria=2" class="no-link-style"></i>Guitarras  </a></li>
+                <li><a href="{% url 'homepage' %}?categoria=2" class="no-link-style"></i>Guitarras</a></li>
                 <li>Acessórios</li>                                         
                 <li>Novidades</li>
                 <li><a href="{% url 'lista_pedidos' %}" class="no-link-style"><i class="fas fa-bars"></i>Meus Pedidos</a></li>
-                {% comment %} <li><button class="btn-ofertas"> Ofertas</button></li> {% endcomment %}
+               
             </ul>
         </nav>
     </header>
