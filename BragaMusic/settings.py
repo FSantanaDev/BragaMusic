@@ -13,7 +13,7 @@ SECRET_KEY = os.environ.get('DJANGO_SEECRET_KEY')
 
 # Modo de depuração.
 
-DEBUG = int(os.environ.get('DJANGO_DEBUG', default=0))
+DEBUG = int(os.environ.get('DJANGO_DEBUG', default=1))
 
 # ALLOWED_HOSTS =str(os.environ.get('DJANGO_ALLOWED_HOSTS'))  # ou seus hosts específicos
 ALOWED_HOSTS = ["*"]
