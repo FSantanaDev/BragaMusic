@@ -15,8 +15,8 @@ SECRET_KEY = os.environ.get('DJANGO_SEECRET_KEY')
 
 DEBUG = int(os.environ.get('DJANGO_DEBUG', default=0))
 
-ALLOWED_HOSTS =str(os.environ.get('DJANGO_ALLOWED_HOSTS')).split  # ou seus hosts específicos
-
+# ALLOWED_HOSTS =str(os.environ.get('DJANGO_ALLOWED_HOSTS'))  # ou seus hosts específicos
+ALOWED_HOSTS = ["*"]
 # Configurações do Mercado Pago
 MERCADO_PAGO_PUBLIC_KEY = "APP_USR-aaa24b62-41e7-443a-82ff-f737cab8f01d"
 MERCADO_PAGO_ACCESS_TOKEN = "APP_USR-5090906557242439-031118-de20df38d823da6bbefda51c345df995-2319930959"
